@@ -110,3 +110,28 @@ markdownView/
 
 - 按 `F12` 看 Console / Network
 - 改完 `content.js` 或 `viewer.css` 后，回到 `chrome://extensions/` 点扩展右下角的 **🔄 刷新按钮**，再刷新 .md 页面即可生效
+
+## 打包发布
+
+需要 Windows + 已安装 Chrome。仓库根目录提供 `pack-crx.ps1`，一键生成 `.crx` 和 `.zip`：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\pack-crx.ps1
+```
+
+产物会输出到上层目录的 `dist/`：
+
+| 文件 | 用途 |
+|------|------|
+| `markdown-viewer-chrome-v1.0.0.crx` | 离线分发（接收方拖到 `chrome://extensions/`，需开启开发者模式） |
+| `markdown-viewer-chrome.pem` | 🔑 **私钥，务必备份**。下次发新版必须用同一份才能保持扩展 ID 不变 |
+
+> ⚠️ `.pem` 已被 `.gitignore` 排除，并且默认输出在仓库目录之外（`../dist/`），不会进 git。请单独备份到密码管理器或 U 盘。
+
+如果要上架 [Chrome Web Store](https://chrome.google.com/webstore/devconsole)，用同目录里的 `.zip` 上传即可（无需 `.pem`，商店会用 Google 自己的密钥签名）。
+
+接收方安装 `.crx` 的步骤：
+1. 打开 `chrome://extensions/`，右上角打开 **开发者模式**
+2. **拖动** `.crx` 文件到该页面（不能双击）
+3. 点 **添加扩展程序** 确认；启动时若提示"已禁用开发者模式扩展"，点保留即可
+4. 想看本地 `file://` 文件，还要进扩展详情打开 **允许访问文件网址**
