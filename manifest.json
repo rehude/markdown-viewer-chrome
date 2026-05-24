@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Markdown Viewer",
+  "version": "1.0.0",
+  "description": "自动渲染 .md / .markdown 文件为富文本，支持代码高亮、Mermaid、KaTeX、目录、深浅色主题。",
+  "permissions": ["downloads"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "file:///*.md",
+        "file:///*.markdown",
+        "file:///*.MD",
+        "*://*/*.md",
+        "*://*/*.markdown"
+      ],
+      "js": [
+        "lib/markdown-it.min.js",
+        "lib/markdown-it-task-lists.min.js",
+        "lib/highlight.min.js",
+        "lib/katex.min.js",
+        "lib/auto-render.min.js",
+        "content.js"
+      ],
+      "css": [
+        "lib/github-markdown.css",
+        "lib/highlight-github.css",
+        "lib/katex.min.css",
+        "viewer.css"
+      ],
+      "run_at": "document_end",
+      "match_about_blank": false,
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["lib/*", "viewer.css", "themes/*", "themes/*/*", "themes/*/*/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

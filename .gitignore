@@ -1,0 +1,18 @@
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code 本地设置
+.claude/
+
+# 打包产物（如果以后用脚本打 zip）
+*.zip
+dist/
+build/
